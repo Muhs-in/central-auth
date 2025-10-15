@@ -1,22 +1,25 @@
 FROM node:20-alpine
 
-# Enable pnpm via Corepack (comes built into Node 20)
+# Enable pnpm (comes with Node 20)
 RUN corepack enable
 
 WORKDIR /usr/src/app
 
-# Copy dependency files
+# Copy lockfiles
 COPY package.json pnpm-lock.yaml* ./
 
-# Install only production dependencies
-RUN pnpm install --prod --frozen-lockfile
+# Install ALL dependencies (including dev) to allow prisma generation
+RUN pnpm install --frozen-lockfile
 
-# Copy Prisma and source code
+# Copy app code
 COPY prisma ./prisma
 COPY src ./src
 
 # Generate Prisma client
 RUN pnpm prisma generate
+
+# Remove dev dependencies to slim image
+RUN pnpm prune --prod
 
 EXPOSE 4000
 
