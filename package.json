@@ -1,0 +1,30 @@
+{
+  "name": "central-auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Muhs-in/central-auth.git"
+  },
+  "author": "Muhsin Ibrahim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Muhs-in/central-auth/issues"
+  },
+  "homepage": "https://github.com/Muhs-in/central-auth#readme",
+  "dependencies": {
+    "@prisma/client": "^6.17.1",
+    "better-auth": "^1.3.27",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.1.0",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "prisma": "^6.17.1"
+  }
+}

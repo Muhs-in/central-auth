@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: authuser
+      POSTGRES_PASSWORD: authpass
+      POSTGRES_DB: authdb
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - internal
+
+  auth:
+    build: .
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    networks:
+      - internal
+    ports:
+      - "127.0.0.1:4000:4000"  # Only exposed to localhost
+    restart: unless-stopped
+    command: >
+      sh -c "npx prisma migrate deploy && node src/index.mjs"
+
+volumes:
+  pgdata:
+
+networks:
+  internal:
+    driver: bridge
